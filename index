@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Tech | IT Solutions for SMEs & Startups</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: "Calm Corporate Blue" - bg-slate-50 (background), bg-white (cards), text-slate-800 (primary text), text-slate-600 (secondary text), bg-blue-600 (accent/primary buttons), text-white (on accent). -->
+    <!-- Application Structure Plan: A single-page scrolling layout is used for a narrative, intuitive user flow. It starts with a Hero section for immediate impact, followed by About/Values, an interactive Service Packages section with tabs and a dynamic comparison chart to simplify decision-making, a 'Why Us' section using icons for scannability, and a final Contact section. This structure guides the user from awareness to consideration and action, which is more effective for a corporate profile than a simple document layout. -->
+    <!-- Visualization & Content Choices: The core interaction is the service tier comparison. Report Info: Tiered packages table. Goal: Compare services & price. Viz/Presentation: A matrix table allows direct feature-by-feature comparison across tiers. Feature descriptions are now tooltips on the feature names to compress the table. Justification: This provides a comprehensive overview, making all information accessible while optimizing for space. Library/Method: Vanilla JS for DOM manipulation and table generation. Other sections use Tailwind grids and flexbox with icons for clear, scannable information. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+        .table-header-sticky {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background-color: white; /* Ensure header background is solid */
+        }
+    </style>
+</head>
+<body class="smooth-scroll">
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-blue-600">Nexus Tech</h1>
+            <div>
+                <a href="#services" class="text-slate-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Services</a>
+                <a href="#about" class="text-slate-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">About</a>
+                <a href="#contact" class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors">Contact Us</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="bg-slate-100 py-20 sm:py-32">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl md:text-6xl font-bold text-slate-800 leading-tight">Empowering Your Business with Robust IT Solutions</h2>
+                <p class="mt-4 text-lg md:text-xl text-slate-600 max-w-3xl mx-auto">We provide scalable and cost-effective IT management, cybersecurity, and cloud services for SMEs and Startups, letting you focus on what matters most: your growth.</p>
+                <a href="#services" class="mt-8 inline-block bg-blue-600 text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-blue-700 transition-transform transform hover:scale-105">Explore Our Packages</a>
+            </div>
+        </section>
+        
+        <section id="about" class="py-16 sm:py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl font-bold text-slate-800">Your Trusted Technology Partner</h3>
+                    <p class="mt-2 text-lg text-slate-600 max-w-2xl mx-auto">Founded on the principle that cutting-edge technology should be accessible to all, our mission is to ensure your IT infrastructure is secure, efficient, and perfectly aligned with your business goals.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-center">
+                    <div class="bg-white p-8 rounded-lg shadow-md">
+                        <div class="text-4xl text-blue-600 mb-4">🎯</div>
+                        <h4 class="text-xl font-semibold mb-2">Client-Centricity</h4>
+                        <p class="text-slate-600">Your success is our success. We prioritize understanding your unique needs to deliver tailored solutions.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-md">
+                        <div class="text-4xl text-blue-600 mb-4">💡</div>
+                        <h4 class="text-xl font-semibold mb-2">Innovation</h4>
+                        <p class="text-slate-600">We stay ahead of tech trends, bringing the latest and most effective solutions to our clients.</p>
+                    </div >
+                    <div class="bg-white p-8 rounded-lg shadow-md">
+                        <div class="text-4xl text-blue-600 mb-4">🛡️</div>
+                        <h4 class="text-xl font-semibold mb-2">Reliability</h4>
+                        <p class="text-slate-600">We are committed to dependable and consistent services, ensuring maximum uptime and performance.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="bg-slate-100 py-16 sm:py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl font-bold text-slate-800">Flexible Service Packages</h3>
+                    <p class="mt-2 text-lg text-slate-600 max-w-3xl mx-auto">Explore our tiered packages designed to meet the diverse needs of SMEs and Startups. The table below provides a comprehensive comparison of features and pricing across our service tiers. Hover over a feature name to see its description.</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-xl p-6 sm:p-10 overflow-x-auto">
+                    <table id="services-matrix" class="min-w-full divide-y divide-slate-200">
+                        <thead class="bg-slate-50">
+                            <tr>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider table-header-sticky">Feature</th>
+                                <th class="px-4 py-3 text-center text-xs font-medium text-slate-500 uppercase tracking-wider table-header-sticky">Essential Foundations</th>
+                                <th class="px-4 py-3 text-center text-xs font-medium text-slate-500 uppercase tracking-wider table-header-sticky">Growth Accelerator</th>
+                                <th class="px-4 py-3 text-center text-xs font-medium text-slate-500 uppercase tracking-wider table-header-sticky">Strategic Partnership</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-slate-200">
+                            <!-- Table rows will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                    <p id="pricing-note" class="mt-6 text-sm text-slate-600 italic text-center">
+                        *All prices are per user/month and are based on typical user counts and service needs for each tier. For a custom quote tailored to your specific environment, please contact us.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="why-us" class="py-16 sm:py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl font-bold text-slate-800">The Nexus Tech Advantage</h3>
+                    <p class="mt-2 text-lg text-slate-600 max-w-2xl mx-auto">We deliver more than just IT support; we provide a foundation for your business to grow and succeed securely.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="flex items-start space-x-4">
+                        <div class="text-3xl text-blue-500 mt-1">🔧</div>
+                        <div>
+                            <h4 class="font-semibold text-lg">Tailored Solutions</h4>
+                            <p class="text-slate-600">Our services are customized to meet your specific budget and operational needs.</p>
+                        </div>
+                    </div>
+                     <div class="flex items-start space-x-4">
+                        <div class="text-3xl text-blue-500 mt-1">📈</div>
+                        <div>
+                            <h4 class="font-semibold text-lg">Proactive Approach</h4>
+                            <p class="text-slate-600">We prevent issues before they impact business, minimizing downtime.</p>
+                        </div>
+                    </div>
+                     <div class="flex items-start space-x-4">
+                        <div class="text-3xl text-blue-500 mt-1">🧑‍💻</div>
+                        <div>
+                            <h4 class="font-semibold text-lg">Expert Team</h4>
+                            <p class="text-slate-600">Our certified professionals bring extensive experience across all IT domains.</p>
+                        </div>
+                    </div>
+                     <div class="flex items-start space-x-4">
+                        <div class="text-3xl text-blue-500 mt-1">💰</div>
+                        <div>
+                            <h4 class="font-semibold text-lg">Cost Efficiency</h4>
+                            <p class="text-slate-600">Reduce operational costs compared to maintaining a full in-house IT team.</p>
+                        </div>
+                    </div>
+                     <div class="flex items-start space-x-4">
+                        <div class="text-3xl text-blue-500 mt-1">🌐</div>
+                        <div>
+                            <h4 class="font-semibold text-lg">Scalability</h4>
+                            <p class="text-slate-600">Our solutions are designed to scale with your business as it grows.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="text-3xl text-blue-500 mt-1">🔒</div>
+                        <div>
+                            <h4 class="font-semibold text-lg">Focus on Security</h4>
+                            <p class="text-slate-600">Cybersecurity is integrated into every service we offer, protecting your valuable data.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="bg-blue-600 text-white py-16 sm:py-24">
+            <div class="container mx-auto px-6 text-center">
+                 <h3 class="text-3xl font-bold">Ready to Elevate Your IT?</h3>
+                 <p class="mt-2 text-lg text-blue-200 max-w-2xl mx-auto">Let's discuss how Nexus Tech can become your trusted technology partner. Reach out today for a no-obligation consultation.</p>
+                 <div class="mt-8 text-xl">
+                     <p><span class="font-semibold">Email:</span> <a href="mailto:[Your Email Address]" class="hover:underline">[Your Email Address]</a></p>
+                     <p class="mt-2"><span class="font-semibold">Phone:</span> <a href="tel:[Your Phone Number]" class="hover:underline">[Your Phone Number]</a></p>
+                     <p class="mt-2"><span class="font-semibold">Address:</span> [Your Company Address], [Your City, Postal Code], [Your Country]</p>
+                 </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-800 text-slate-400 py-6">
+        <div class="container mx-auto px-6 text-center text-sm">
+            <p>&copy; 2025 Nexus Tech. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const serviceData = [
+                {
+                    id: 'essential',
+                    name: 'Essential Foundations',
+                    price: 1500, // Per user/month (adjusted for example)
+                    userAssumption: 'Ideal for small teams (1-5 users) with basic IT needs and minimal in-house IT expertise.',
+                    features: {
+                        '24/7 Proactive Monitoring': 'Basic',
+                        'Basic Helpdesk Support': 'Business Hours',
+                        'Antivirus & Anti-Malware': 'Included',
+                        'Patch Management': 'Included',
+                        'Basic Vendor Liaison': 'Included',
+                        'Extended Helpdesk Support': 'No',
+                        'Network Management': 'No',
+                        'Firewall Management': 'No',
+                        'Basic Data Backup & Recovery': 'No',
+                        'Cloud Migration Assistance': 'No',
+                        'Basic Cybersecurity Training': 'No',
+                        '24/7/365 Proactive Monitoring & Support': 'No',
+                        'Advanced Cybersecurity Suite': 'No',
+                        'Disaster Recovery Planning & Testing': 'No',
+                        'Full Cloud Infrastructure Management': 'No',
+                        'Strategic IT Consulting': 'No',
+                        'Hardware Procurement & Lifecycle Management': 'No'
+                    }
+                },
+                {
+                    id: 'growth',
+                    name: 'Growth Accelerator',
+                    price: 3000, // Per user/month (adjusted for example)
+                    userAssumption: 'Suitable for growing businesses (6-25 users) needing more robust IT management, enhanced security, and cloud integration.',
+                    features: {
+                        '24/7 Proactive Monitoring': 'Enhanced',
+                        'Basic Helpdesk Support': 'Included',
+                        'Antivirus & Anti-Malware': 'Included',
+                        'Patch Management': 'Included',
+                        'Basic Vendor Liaison': 'Included',
+                        'Extended Helpdesk Support': 'Priority (Extended Hours, Limited On-site)',
+                        'Network Management': 'Basic',
+                        'Firewall Management': 'Included',
+                        'Basic Data Backup & Recovery': 'Included',
+                        'Cloud Migration Assistance': 'Initial Adoption',
+                        'Basic Cybersecurity Training': 'Annual',
+                        '24/7/365 Proactive Monitoring & Support': 'No',
+                        'Advanced Cybersecurity Suite': 'No',
+                        'Disaster Recovery Planning & Testing': 'No',
+                        'Full Cloud Infrastructure Management': 'No',
+                        'Strategic IT Consulting': 'No',
+                        'Hardware Procurement & Lifecycle Management': 'No'
+                    }
+                },
+                {
+                    id: 'strategic',
+                    name: 'Strategic Partnership',
+                    price: 6000, // Per user/month (adjusted for example)
+                    userAssumption: 'Designed for larger SMEs and established startups (26+ users) with complex IT environments and a desire for strategic IT guidance.',
+                    features: {
+                        '24/7 Proactive Monitoring': 'Comprehensive',
+                        'Basic Helpdesk Support': 'Included',
+                        'Antivirus & Anti-Malware': 'Included',
+                        'Patch Management': 'Included',
+                        'Basic Vendor Liaison': 'Included',
+                        'Extended Helpdesk Support': 'Included',
+                        'Network Management': 'Advanced',
+                        'Firewall Management': 'Included',
+                        'Basic Data Backup & Recovery': 'Included',
+                        'Cloud Migration Assistance': 'Included',
+                        'Basic Cybersecurity Training': 'Included',
+                        '24/7/365 Proactive Monitoring & Support': 'Included (Immediate Response)',
+                        'Advanced Cybersecurity Suite': 'MDR, SIEM, Vulnerability Scanning, Incident Response',
+                        'Disaster Recovery Planning & Testing': 'Comprehensive',
+                        'Full Cloud Infrastructure Management': 'Optimization, Advanced Security, Serverless/Container Support',
+                        'Strategic IT Consulting': 'Dedicated Account Manager, QBRs, Roadmap, Compliance',
+                        'Hardware Procurement & Lifecycle Management': 'Included'
+                    }
+                }
+            ];
+
+            const allFeaturesWithDescriptions = [
+                { name: '24/7 Proactive Monitoring', description: 'Continuous monitoring of your IT systems to detect issues and ensure uptime.' },
+                { name: 'Basic Helpdesk Support', description: 'Assistance for common IT issues like password resets and basic software troubleshooting.' },
+                { name: 'Antivirus & Anti-Malware', description: 'Deployment and management of endpoint protection to guard against malicious software.' },
+                { name: 'Patch Management', description: 'Automated application of operating system and software updates for security and stability.' },
+                { name: 'Basic Vendor Liaison', description: 'Coordination with third-party software and hardware vendors on your behalf.' },
+                { name: 'Extended Helpdesk Support', description: 'Priority remote and limited on-site support during extended business hours.' },
+                { name: 'Network Management', description: 'Monitoring, configuration, and optimization of your network infrastructure, including Wi-Fi.' },
+                { name: 'Firewall Management', description: 'Configuration and maintenance of network firewalls for robust perimeter security.' },
+                { name: 'Basic Data Backup & Recovery', description: 'Automated daily backups of critical data with assistance for basic data recovery.' },
+                { name: 'Cloud Migration Assistance', description: 'Guidance and support for initial adoption and setup of cloud services (e.g., Microsoft 365).' },
+                { name: 'Basic Cybersecurity Training', description: 'Annual user awareness training to educate employees on common cyber threats and best practices.' },
+                { name: '24/7/365 Proactive Monitoring & Support', description: 'Round-the-clock monitoring with immediate response for critical IT issues.' },
+                { name: 'Advanced Cybersecurity Suite', description: 'Includes Managed Detection and Response (MDR), SIEM monitoring, vulnerability scanning, and incident response planning.' },
+                { name: 'Disaster Recovery Planning & Testing', description: 'Comprehensive business continuity and disaster recovery solutions, including regular testing.' },
+                { name: 'Full Cloud Infrastructure Management', description: 'Optimization, cost management, and advanced security configurations for your cloud resources (Azure, AWS, Google Cloud).' },
+                { name: 'Strategic IT Consulting', description: 'Dedicated IT Account Manager, Quarterly Business Reviews (QBRs), technology roadmap development, and IT budget planning.' },
+                { name: 'Hardware Procurement & Lifecycle Management', description: 'Assistance with purchasing, deployment, and end-of-life management for IT assets.' }
+            ];
+
+            const servicesMatrixBody = document.querySelector('#services-matrix tbody');
+
+            function populateMatrix() {
+                servicesMatrixBody.innerHTML = ''; // Clear existing rows
+
+                allFeaturesWithDescriptions.forEach(feature => {
+                    const row = document.createElement('tr');
+                    row.classList.add('hover:bg-slate-50');
+
+                    const featureNameCell = document.createElement('td');
+                    featureNameCell.classList.add('px-4', 'py-4', 'whitespace-normal', 'text-sm', 'font-medium', 'text-slate-900');
+                    featureNameCell.textContent = feature.name;
+                    featureNameCell.title = feature.description; // Add description as a tooltip
+                    row.appendChild(featureNameCell);
+
+                    serviceData.forEach((tier) => {
+                        const tierCell = document.createElement('td');
+                        tierCell.classList.add('px-4', 'py-4', 'whitespace-normal', 'text-sm', 'text-slate-600', 'text-center');
+                        tierCell.textContent = tier.features[feature.name] || 'N/A'; // Display 'N/A' if feature not explicitly defined
+                        row.appendChild(tierCell);
+                    });
+                    servicesMatrixBody.appendChild(row);
+                });
+
+                // Add the pricing row
+                const priceRow = document.createElement('tr');
+                priceRow.classList.add('bg-blue-50', 'font-semibold', 'text-slate-800');
+                const priceLabelCell = document.createElement('td');
+                priceLabelCell.classList.add('px-4', 'py-4', 'whitespace-nowrap', 'text-sm', 'font-bold');
+                priceLabelCell.textContent = 'Starting Price (Per User/Month)';
+                priceRow.appendChild(priceLabelCell);
+
+                serviceData.forEach((tier) => {
+                    const priceCell = document.createElement('td');
+                    priceCell.classList.add('px-4', 'py-4', 'whitespace-nowrap', 'text-sm', 'text-center');
+                    priceCell.textContent = new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP' }).format(tier.price);
+                    priceRow.appendChild(priceCell);
+                });
+                servicesMatrixBody.appendChild(priceRow);
+
+                // Add the user assumption row
+                const userAssumptionRow = document.createElement('tr');
+                userAssumptionRow.classList.add('bg-slate-100', 'text-slate-600', 'italic');
+                const userAssumptionLabelCell = document.createElement('td');
+                userAssumptionLabelCell.classList.add('px-4', 'py-4', 'whitespace-normal', 'text-sm', 'font-medium');
+                userAssumptionLabelCell.textContent = 'Sample User Assumption';
+                userAssumptionRow.appendChild(userAssumptionLabelCell);
+
+                serviceData.forEach((tier) => {
+                    const userAssumptionCell = document.createElement('td');
+                    userAssumptionCell.classList.add('px-4', 'py-4', 'whitespace-normal', 'text-sm', 'text-center');
+                    userAssumptionCell.textContent = tier.userAssumption;
+                    userAssumptionRow.appendChild(userAssumptionCell);
+                });
+                servicesMatrixBody.appendChild(userAssumptionRow);
+            }
+
+            populateMatrix();
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
